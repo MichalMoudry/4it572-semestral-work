@@ -1,10 +1,7 @@
-name: Build and test eshop
-
+name: Deploy to EC2
 on:
-  push:
-  #workflow_dispatch:
-  #pull_request:
-    #branches: ["main"]
+  workflow_dispatch:
+  push: ["main"]
 
 jobs:
   Install:
@@ -12,7 +9,7 @@ jobs:
 
     steps:
       - name: Code checkout
-        uses: actions/checkout@v2.5.0
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Setup NodeJS
@@ -35,7 +32,7 @@ jobs:
 
     steps:
       - name: Code checkout
-        uses: actions/checkout@v2.5.0
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Setup NodeJS
@@ -68,7 +65,7 @@ jobs:
 
     steps:
       - name: Code checkout
-        uses: actions/checkout@v2.5.0
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Setup NodeJS
@@ -83,3 +80,22 @@ jobs:
       - name: Run tests
         run: |
           npm run test -- --colors
+
+  Deploy:
+    needs:
+      - Build
+      - Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.WORKFLOW_TOKEN }}
+      #- name: Run Ansible playbook
+        #uses: dawidd6/action-ansible-playbook@v2.6.1
+        #with:
+          #playbook: ec2_deploy.yml
+          #key: ${{ secrets.SSH_PRIV_KEY }}
+          #vault_password: ${{ secrets.VAULT_PASSWORD }}
+      
