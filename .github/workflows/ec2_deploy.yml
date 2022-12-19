@@ -97,7 +97,8 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2.6.1
         with:
           playbook: sw_ec2_deploy.yml
-          directory: ${{ secrets.PLAYBOOK_DIRECTORY }}
           key: ${{ secrets.SSH_PRIV_KEY }}
           vault_password: ${{ secrets.VAULT_PASSWORD }}
+          options: |
+            --verbose
       
