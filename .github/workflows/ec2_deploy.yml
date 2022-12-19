@@ -94,11 +94,16 @@ jobs:
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Run Ansible playbook
-        uses: dawidd6/action-ansible-playbook@v2.6.1
-        with:
-          playbook: ansible_playbook.yml
-          key: ${{ secrets.SSH_PRIV_KEY }}
-          vault_password: ${{ secrets.VAULT_PASSWORD }}
-          options: |
-            --verbose
+        #uses: dawidd6/action-ansible-playbook@v2.6.1
+        #with:
+          #playbook: ansible_playbook.yml
+          #key: ${{ secrets.SSH_PRIV_KEY }}
+          #vault_password: ${{ secrets.VAULT_PASSWORD }}
+          #options: |
+            #--verbose
+        run: |
+          echo "${{ secrets.SSH_PRIV_KEY }}" > .devops.pem
+          echo "${{ secrets.VAULT_PASSWORD }}" > .vault_pass
+          chmod 400 .devops.pem
+          ansible-playbook ansible_playbook.yml --private_key .devops.pem --user ec2-user --vault-pass-file .vault_pass
       

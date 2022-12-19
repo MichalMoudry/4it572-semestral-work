@@ -29,7 +29,7 @@
         wait: yes
         aws_access_key: "{{ access_key }}"
         aws_secret_key: "{{ secret_key }}"
-        security_token: "{{ session_token }}"
+        session_token: "{{ session_token }}"
       register: ec2
     - name: Add instance to group
       add_host:
