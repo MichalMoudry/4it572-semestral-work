@@ -16,6 +16,7 @@
   tasks:
     - name: Launch EC2 Instance
       amazon.aws.ec2_instance:
+        name: eshop
         instance_type: t2.micro
         image_id: ami-0b0dcb5067f052a63
         region: us-east-1
@@ -32,7 +33,7 @@
       register: ec2
     - name: Add instance to group
       add_host:
-        hostname: "{{ item.public_ip }}"
+        hostname: "{{ item.public_ip_address }}"
         groupname: launched
       loop: "{{ ec2.instances }}"
     - name: Wait for SSH connection
