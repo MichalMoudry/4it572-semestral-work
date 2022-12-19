@@ -96,7 +96,7 @@ jobs:
       - name: Run Ansible playbook
         uses: dawidd6/action-ansible-playbook@v2.6.1
         with:
-          playbook: sw_ec2_deploy.yml
+          playbook: ansible_playbook.yml
           key: ${{ secrets.SSH_PRIV_KEY }}
           vault_password: ${{ secrets.VAULT_PASSWORD }}
           options: |
