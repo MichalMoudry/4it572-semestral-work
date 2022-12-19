@@ -93,10 +93,17 @@ jobs:
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
-      #- name: Run Ansible playbook
-        #uses: dawidd6/action-ansible-playbook@v2.6.1
-        #with:
-          #playbook: ec2_deploy.yml
-          #key: ${{ secrets.SSH_PRIV_KEY }}
-          #vault_password: ${{ secrets.VAULT_PASSWORD }}
+      - name: Install Boto and Boto3 libraries:
+        pip:
+          name:
+            - boto
+            - boto3
+      - name: Run Ansible playbook
+        uses: dawidd6/action-ansible-playbook@v2.6.1
+        with:
+          playbook: ansible_playbook.yml
+          key: ${{ secrets.SSH_PRIV_KEY }}
+          vault_password: ${{ secrets.VAULT_PASSWORD }}
+          options: |
+            --verbose
       
