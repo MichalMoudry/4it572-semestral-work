@@ -94,7 +94,7 @@ jobs:
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Run Ansible playbook
-        uses: dawidd6/action-ansible-playbook@v2.6.1
+        uses: dawidd6/action-ansible-playbook@v2.5.0
         with:
           playbook: ansible_playbook.yml
           key: ${{ secrets.SSH_PRIV_KEY }}
