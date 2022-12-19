@@ -93,6 +93,9 @@ jobs:
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
+      - name: Install Boto and Boto3 libraries
+        run: |
+          pip3 install boto boto3
       - name: Run Ansible playbook
         uses: dawidd6/action-ansible-playbook@v2.6.1
         with:
