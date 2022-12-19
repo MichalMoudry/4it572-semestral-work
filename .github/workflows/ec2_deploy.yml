@@ -95,8 +95,9 @@ jobs:
           token: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Install Boto and Boto3 libraries:
         tasks:
-          pip:
-            name: [boto, boto 3]
+          - name: Install
+            pip:
+              name: [boto, boto]
       - name: Run Ansible playbook
         uses: dawidd6/action-ansible-playbook@v2.6.1
         with:
