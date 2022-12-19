@@ -20,7 +20,7 @@
         instance_type: t2.micro
         image_id: ami-0b0dcb5067f052a63
         region: us-east-1
-        key_name: devops
+        key_name: ansible_key
         vpc_subnet_id: subnet-090885ac08f8a1df6
         security_group: eshop
         count: 1
