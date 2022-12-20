@@ -105,7 +105,7 @@
         aws_access_key: "{{ access_key }}"
         aws_secret_key: "{{ secret_key }}"
         session_token: "{{ session_token }}"
-        instance_ids: {{ item.instance_id }}
+        instance_ids: "{{ item.instance_id }}"
         state: "terminated"
         wait: yes
-      loop: {{ ec2_node_info.instances }}
+      loop: "{{ ec2_node_info.instances }}"
