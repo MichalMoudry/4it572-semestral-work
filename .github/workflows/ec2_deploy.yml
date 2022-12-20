@@ -100,5 +100,5 @@ jobs:
           echo "${{ secrets.SSH_PRIV_KEY }}" > .devops.pem
           echo "${{ secrets.VAULT_PASSWORD }}" > .vault_pass
           chmod 400 .devops.pem
-          ansible-playbook ansible_playbook.yml --private-key .devops.pem --user ec2-user --vault-pass-file .vault_pass -v
+          ansible-playbook ansible_playbook.yml --private-key .devops.pem --user ec2-user --vault-pass-file .vault_pass
       
