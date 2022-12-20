@@ -9,6 +9,15 @@
           - boto
           - boto3
 
+- name: Get EC2 Instance Info
+  amazon.aws.ec2_instance_info:
+    access_key: "{{ access_key }}"
+    secret_key: "{{ secret_key }}"
+    session_token: "{{ session_token }}"
+    filters:
+      "tag:eshop": latest
+  register: ec2_node_info
+
 - name: Deploy to EC2
   hosts: localhost
   connection: local
@@ -24,6 +33,8 @@
         vpc_subnet_id: subnet-090885ac08f8a1df6
         security_group: eshop
         count: 1
+        tags:
+          eshop: latest
         network:
           assign_public_ip: yes
         wait: yes
@@ -83,3 +94,18 @@
     - wait_for:
         port:
           80
+
+- name: Terminate An Old Instance
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Terminate Instance
+      amazon.aws.ec2_instance:
+        aws_access_key: "{{ access_key }}"
+        aws_secret_key: "{{ secret_key }}"
+        session_token: "{{ session_token }}"
+        instance_ids: {{ item.instance_id }}
+        state: "terminated"
+        wait: yes
+      loop: {{ ec2_node_info.instances }}
